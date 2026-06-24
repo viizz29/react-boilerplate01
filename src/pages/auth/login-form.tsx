@@ -1,7 +1,7 @@
-import { TextField, Button, Typography, Paper } from "@mui/material";
+import { TextField, Button, Typography, Paper, Box, Alert } from "@mui/material";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useAuth } from "../../auth/use-auth";
+import { useAuth } from "../../context/use-auth";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { loginApi } from "../../api/auth-api";
@@ -15,10 +15,7 @@ export default function LoginForm() {
       loginApi(email, password),
 
     onSuccess: (data) => {
-      // ✅ Save token in auth context
       login(data.token);
-
-      // redirect
       navigate("/");
     },
 
@@ -29,34 +26,32 @@ export default function LoginForm() {
   });
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Paper className="p-6 w-full max-w-md">
-
-        <Typography variant="h5" className="mb-4">
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <Paper sx={{ p: 3, width: "100%", maxWidth: 448 }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>
           Login
         </Typography>
 
-        <div>
-          {mutation.isError && (
-            <div className="text-red-500 text-sm">
-              Login failed
-            </div>
-          )}
-        </div>
+        {mutation.isError && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            Login failed
+          </Alert>
+        )}
 
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={Yup.object({
-            email: Yup.string(), // Yup.string().email("Invalid email").required("Required"),
+            email: Yup.string(),
             password: Yup.string().required("Required"),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            // 🔐 fake login (replace with API)
-            // const fakeToken = "sample.jwt.token";
-
-            // login(fakeToken);
-            // navigate("/");
-
             mutation.mutate(values);
             setSubmitting(false);
           }}
@@ -68,7 +63,7 @@ export default function LoginForm() {
             errors,
             touched,
           }) => (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <TextField
                 fullWidth
                 label="Email"
@@ -97,10 +92,10 @@ export default function LoginForm() {
               >
                 Login
               </Button>
-            </form>
+            </Box>
           )}
         </Formik>
       </Paper>
-    </div>
+    </Box>
   );
 }

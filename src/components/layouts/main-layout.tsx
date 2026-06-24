@@ -10,9 +10,9 @@ import {
 } from "@mui/material";
 
 
-import { SidebarHeader } from "./siderbar-header-component";
+import { SidebarHeader } from "./sidebar-header-component";
 import { Header } from "./header-component";
-import { ActiveStocksIcon } from "@/assets/active-stocks-icon";
+import { ActiveStocksIcon } from "@/assets/icons/active-stocks-icon";
 import { useTranslation } from "react-i18next";
 
 const drawerWidth = 240;

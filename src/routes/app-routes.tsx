@@ -1,6 +1,7 @@
 import { Suspense, lazy, type JSX } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "../auth/use-auth";
+import { Box, CircularProgress } from "@mui/material";
+import { useAuth } from "../context/use-auth";
 
 // Layout
 import MainLayout from "../components/layouts/main-layout";
@@ -12,14 +13,19 @@ const Home = lazy(() => import("../pages/home/home"));
 const Login = lazy(() => import("../pages/auth/login"));
 const NotFound = lazy(() => import("../pages/misc/not-found"));
 
+const LoadingFallback = () => (
+  <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", p: 4 }}>
+    <CircularProgress />
+  </Box>
+);
+
 // 🔐 Private Route Wrapper
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const { user, isAuthReady } = useAuth();
 
-  // ⏳ Wait until auth is initialized
   if (!isAuthReady) {
-    return <div className="p-4">Loading...</div>;
+    return <LoadingFallback />;
   }
 
   return user ? children : <Navigate to="/login" replace />;
@@ -29,9 +35,8 @@ const PrivateRoute = ({ children }: { children: JSX.Element }) => {
 const AuthRoute = ({ children }: { children: JSX.Element }) => {
   const { user, isAuthReady } = useAuth();
 
-  // ⏳ Wait until auth is initialized
   if (!isAuthReady) {
-    return <div className="p-4">Loading...</div>;
+    return <LoadingFallback />;
   }
 
   return !user ? children : <Navigate to="/" replace />;
@@ -39,12 +44,10 @@ const AuthRoute = ({ children }: { children: JSX.Element }) => {
 
 export default function AppRoutes() {
   return (
-    <Suspense fallback={<div className="p-4">Loading...</div>}>
+    <Suspense fallback={<LoadingFallback />}>
       <Routes>
-        {/* Auth routes */}
         <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
 
-        {/* Private routes with layout */}
         <Route
           path="/"
           element={
@@ -53,13 +56,10 @@ export default function AppRoutes() {
             </PrivateRoute>
           }
         >
-          {/* Nested routes */}
           <Route index element={<Home />} />
           <Route path="/settings" element={<SettingsPage />} />
-
         </Route>
 
-        {/* Catch all */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

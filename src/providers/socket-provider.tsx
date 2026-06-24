@@ -1,7 +1,7 @@
 // SocketProvider.tsx
 import React, { createContext, useContext, useEffect } from "react";
-import { getSocket, SocketConnection } from "./socket";
-import { useAuth } from "@/auth/use-auth";
+import { getSocket, SocketConnection } from "@/services/socket";
+import { useAuth } from "@/context/use-auth";
 import { SOCKETIO_ENABLED } from "@/config";
 
 const SocketContext = createContext<SocketConnection | null>(null);

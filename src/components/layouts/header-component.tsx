@@ -10,10 +10,10 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { ThemeToggleButton } from "@/components/layouts/theme-toggle-button";
-import { CalendarIcon } from "../../assets/calendar-icon";
+import { CalendarIcon } from "../../assets/icons/calendar-icon";
 import { formatDate } from "../../utils/format-date";
 import UserMenu from "./user-menu";
-import LanguageSwitcher from "@/components/misc/language-switcher";
+import LanguageSwitcher from "@/components/navigation/language-switcher";
 
 interface HeaderProps {
   isSidebarOpen: boolean;

@@ -3,13 +3,13 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthProvider } from './auth/auth-provider.tsx';
+import { AuthProvider } from './context/auth-provider.tsx';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { store } from '@/store/store.ts';
-import { LocalStorageProvider } from '@/components/misc/local-storage-provider.tsx';
+import { LocalStorageProvider } from '@/providers/local-storage-provider.tsx';
 import { MOCK_API_ON } from '@/config.ts';
-import { SocketProvider } from '@/pages/home/socket-provider.tsx';
+import { SocketProvider } from '@/providers/socket-provider.tsx';
 
 
 const queryClient = new QueryClient();

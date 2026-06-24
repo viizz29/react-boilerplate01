@@ -1,4 +1,4 @@
-import { useStorage } from "@/components/misc/local-storage-provider";
+import { useStorage } from "@/providers/local-storage-provider";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 

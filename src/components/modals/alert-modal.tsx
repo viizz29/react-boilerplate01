@@ -1,11 +1,5 @@
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Alert,
-} from '@mui/material';
+import GenericModal from "@/components/modals/generic-modal";
+import { Alert } from '@mui/material';
 
 type AlertType = 'success' | 'error' | 'warning' | 'info';
 
@@ -25,18 +19,14 @@ export default function AlertModal({
   onClose,
 }: AlertModalProps) {
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{title}</DialogTitle>
-
-      <DialogContent>
-        <Alert severity={type}>{message}</Alert>
-      </DialogContent>
-
-      <DialogActions>
-        <Button onClick={onClose} variant="contained">
-          OK
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <GenericModal
+      open={open}
+      title={title}
+      onClose={onClose}
+      onCancel={onClose}
+      actions={[{ label: "OK", listener: onClose }]}
+    >
+      <Alert severity={type}>{message}</Alert>
+    </GenericModal>
   );
 }

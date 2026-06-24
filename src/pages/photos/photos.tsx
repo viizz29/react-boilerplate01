@@ -1,11 +1,12 @@
 import { createAlbum } from "@/api/album-apis";
 import AlbumTitleInputModal from "@/pages/photos/album-name-input-modal";
-import InfiniteScrollingImageGrid from "@/pages/photos/infinite-scrolling-image-grid";
-import SearchWidget from "@/pages/photos/search-widget";
+import InfiniteScrollingImageGrid from "@/components/data-display/infinite-scrolling-image-grid";
+import SearchWidget from "@/components/data-display/search-widget";
 import { Box, Button } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import PageWrapper from "@/components/layouts/page-wrapper";
 
 export default function PhotosPage() {
 
@@ -37,17 +38,7 @@ export default function PhotosPage() {
   }
 
 
-  return <Box
-    sx={{
-      minHeight: "100%",
-      borderRadius: 2,
-      background: (theme) =>
-        theme.palette.mode === "dark"
-          ? "linear-gradient(135deg, rgba(25, 118, 210, 0.22), rgba(156, 39, 176, 0.12) 45%, rgba(18, 18, 18, 0) 72%)"
-          : "linear-gradient(135deg, rgba(25, 118, 210, 0.12), rgba(236, 64, 122, 0.08) 46%, rgba(255, 255, 255, 0) 72%)",
-      p: { xs: 2, md: 4 }
-    }}
-  >
+  return <PageWrapper>
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, flexWrap: 'wrap', gap: 2 }}>
       <SearchWidget onInput={setSearchTerm} />
 
@@ -67,5 +58,5 @@ export default function PhotosPage() {
       onClose={() => setAlbumTitleInputModalOpen(false)}
       onSubmit={createAlbumHandler}
     />
-  </Box>
+  </PageWrapper>
 }

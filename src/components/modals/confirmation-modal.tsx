@@ -1,10 +1,4 @@
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from '@mui/material';
+import GenericModal from "@/components/modals/generic-modal";
 
 type ConfirmModalProps = {
   open: boolean;
@@ -15,17 +9,14 @@ type ConfirmModalProps = {
 
 export default function ConfirmModal({ open, message, onConfirm, onCancel }: ConfirmModalProps) {
   return (
-    <Dialog open={open} onClose={onCancel}>
-      <DialogTitle>Confirm</DialogTitle>
-
-      <DialogContent>{message}</DialogContent>
-
-      <DialogActions>
-        <Button onClick={onCancel}>Cancel</Button>
-        <Button onClick={onConfirm} variant="contained" color="error">
-          Yes
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <GenericModal
+      open={open}
+      title="Confirm"
+      onClose={onCancel}
+      onCancel={onCancel}
+      actions={[{ label: "Yes", listener: onConfirm }]}
+    >
+      {message}
+    </GenericModal>
   );
 }

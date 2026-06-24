@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { jwtDecode } from "jwt-decode";
-import { useStorage } from "@/components/misc/local-storage-provider";
+import { useStorage } from "@/providers/local-storage-provider";
 
 type User = {
   sub?: string;

@@ -7,7 +7,7 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
-import { useAuth } from "../../auth/use-auth";
+import { useAuth } from "../../context/use-auth";
 import { useTranslation } from "react-i18next";
 
 const UserAvatarIcon = () => (
