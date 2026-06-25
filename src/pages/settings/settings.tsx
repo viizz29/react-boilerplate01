@@ -1,4 +1,4 @@
-import { Box, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 import PageWrapper from "@/components/layouts/page-wrapper";
 
 export default function SettingsPage() {
